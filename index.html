@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>语义相关性分析平台</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="layout">
+    <!-- 侧边导航 -->
+    <aside class="sidebar">
+      <div class="brand">
+        <span class="brand-mark">SR</span>
+        <span class="brand-name">SemRel&nbsp;Analytics</span>
+      </div>
+      <nav class="nav">
+        <a class="nav-item active">
+          <span class="nav-dot"></span>相关性分析
+        </a>
+        <a class="nav-item">数据集管理</a>
+        <a class="nav-item">批量任务</a>
+        <a class="nav-item">模型配置</a>
+        <a class="nav-item">导出报告</a>
+        <a class="nav-item">系统设置</a>
+      </nav>
+      <div class="sidebar-foot">
+        <div class="env-tag">环境：生产</div>
+        <div class="ver">v2.4.1</div>
+      </div>
+    </aside>
+
+    <!-- 主区 -->
+    <main class="main">
+      <header class="appbar">
+        <div class="crumbs">
+          <span>工作台</span>
+          <span class="sep">/</span>
+          <span>语义分析</span>
+          <span class="sep">/</span>
+          <span class="cur">关键词相关性</span>
+        </div>
+        <div class="appbar-right">
+          <span class="status-pill" id="connPill">
+            <span class="status-led"></span><span id="connText">服务在线</span>
+          </span>
+          <span class="user">
+            <span class="avatar">U</span>
+            <span class="user-name">数据分析员</span>
+          </span>
+        </div>
+      </header>
+
+      <section class="content">
+        <div class="page-head">
+          <div>
+            <h1>关键词相关性分析</h1>
+            <p class="desc">输入候选关键词，系统将基于语义模型计算其与目标向量的匹配度，并按得分排序。</p>
+          </div>
+          <div class="head-meta">
+            <div class="meta-box">
+              <span class="meta-label">当前任务</span>
+              <span class="meta-val" id="taskId">TASK-20260609-0173</span>
+            </div>
+            <div class="meta-box">
+              <span class="meta-label">已处理样本</span>
+              <span class="meta-val" id="sampleCount">0</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 查询条 -->
+        <div class="query-card">
+          <label class="field-label">候选关键词</label>
+          <div class="query-row">
+            <input
+              id="guessInput"
+              type="text"
+              autocomplete="off"
+              maxlength="10"
+              placeholder="输入待分析的关键词，回车提交"
+            />
+            <button id="guessBtn" class="btn-primary">分析</button>
+            <button id="hintBtn" class="btn-ghost">参数</button>
+            <button id="helpBtn" class="btn-ghost">场外求助</button>
+            <button id="giveupBtn" class="btn-ghost">终止</button>
+            <button id="newGameBtn" class="btn-ghost">重置任务</button>
+          </div>
+          <p id="message" class="message"></p>
+        </div>
+
+        <!-- 结果表 -->
+        <div class="table-card">
+          <div class="table-head">
+            <span class="col-rank">#</span>
+            <span class="col-word">关键词</span>
+            <span class="col-bar">匹配度分布</span>
+            <span class="col-score">相似度评分</span>
+          </div>
+          <ul id="resultList" class="result-list"></ul>
+          <div id="emptyState" class="empty-state">暂无分析记录，请输入关键词开始。</div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- 完成提示（低调样式） -->
+  <div id="winBanner" class="toast hidden">
+    <div class="toast-card">
+      <span class="toast-icon">✓</span>
+      <div class="toast-body">
+        <strong id="winTitle">匹配完成</strong>
+        <span id="winText"></span>
+      </div>
+      <button id="winNewGame" class="btn-ghost sm">新建任务</button>
+    </div>
+  </div>
+
+  <!-- 场外求助弹窗 -->
+  <div id="helpModal" class="modal hidden">
+    <div class="modal-card">
+      <div class="modal-head">
+        <strong>场外求助</strong>
+        <button id="helpClose" class="modal-close" title="关闭">×</button>
+      </div>
+      <div class="help-options">
+        <button class="btn-ghost sm" data-help="length">是几个字</button>
+        <button class="btn-ghost sm" data-help="related">跟什么相关</button>
+        <button class="btn-ghost sm" data-help="ask">自己提问</button>
+      </div>
+      <div id="helpAskRow" class="help-ask hidden">
+        <input id="helpInput" type="text" maxlength="50" autocomplete="off" placeholder="输入你的问题，回车发送" />
+        <button id="helpSend" class="btn-primary sm">发送</button>
+      </div>
+      <ul id="helpList" class="help-list"></ul>
+      <p id="helpEmpty" class="help-empty">选择一个问题，AI 会实时回答（不超过 20 字）。</p>
+    </div>
+  </div>
+
+  <script src="answers.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+{
+  "name": "guess-word",
+  "version": "1.0.0",
+  "private": true,
+  "description": "中文语义猜词小游戏",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

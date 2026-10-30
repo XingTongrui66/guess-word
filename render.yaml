@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: guess-word
+    runtime: node
+    plan: free
+    region: singapore
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: API_BASE_URL
+        value: https://api.siliconflow.cn
+      - key: API_MODEL
+        value: Qwen/Qwen2.5-7B-Instruct
+      # key 不写在这里，部署时 Render 会让你在网页上填
+      - key: API_KEY
+        sync: false

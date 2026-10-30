@@ -1,0 +1,10 @@
+# 含 API key，绝不能提交
+config.json
+
+# 备份和本地文件
+*.bak
+.vscode/
+
+# 同目录下的其他小项目，不随猜词游戏发布
+reader/
+sudoku/
